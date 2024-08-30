@@ -2,6 +2,7 @@
 Dummy file for testing some ideas
 """
 
+from src.main.main import Templite
 import webbrowser
 
 PAGE_HTML = """
@@ -43,3 +44,23 @@ data = make_page(
 )
 
 print(data)
+
+
+# Make a Templite object.
+templite = Templite(
+    """
+    <h1>Hello {{name|upper}}!</h1>
+    {% for topic in topics %}
+        <p>You are interested in {{topic}}.</p>
+    {% endfor %}
+    """,
+    {"upper": str.upper},
+)
+
+# Later, use it to render some data.
+text = templite.render(
+    {
+        "name": "Ned",
+        "topics": ["Python", "Geometry", "Juggling"],
+    }
+)
